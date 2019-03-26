@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from lists import views
 
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+# ]
+"""
+url(regex, view, kwargs=None, name=None) 
+This function is an alias to django.urls.re_path(). 
+It’s likely to be deprecated in a future release.
+"""
 urlpatterns = [
-    path('admin/', admin.site.urls),
+	path('', views.home_page, name='home')	#  path 不用正则表达式
 ]
