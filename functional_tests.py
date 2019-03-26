@@ -15,6 +15,11 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# kobe 听说有个很酷的在线待办事项应用
 		# 他去看了这个应用的首页
@@ -35,14 +40,19 @@ class NewVisitorTest(unittest.TestCase):
 		# 待办事项中显示了”1：Buy a new basketball“
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Buy a new basketball' for row in rows),
-			"New to-do item did not appear in table"
-		)
+		self.check_for_row_in_list_table('1: Buy a new basketball')
 		# 页面中又显示了一个文本框，可以输入其它代办事项
 		# 他又输入了 ”play basketball to win the game“
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('play basketball to win the game')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
+		# 页面再次更新, 他的清单中显示了两个待办事项
+		self.check_for_row_in_list_table('1: Buy a new basketball')
+		self.check_for_row_in_list_table('2: play basketball to win the game')
+		# kobe想知道这个网站是否会记住她的清单
+		# 他看到网站为他生成了唯一一个URL
+		# 页面中有一些文字解说这个功能
 		self.fail('Finish the test!')
 
 if __name__ == '__main__':
