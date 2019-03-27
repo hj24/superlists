@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
 from lists import views
 
 # urlpatterns = [
@@ -27,6 +28,7 @@ It’s likely to be deprecated in a future release.
 """
 urlpatterns = [
 	path('', views.home_page, name='home'),	#  path 不用正则表达式
-	path('lists/the-only-list-in-the-world/', views.view_list, name='view_list'),
-	path('lists/new', views.new_list, name='new_list')
+	path('lists/new', views.new_list, name='new_list'),
+	url(r'^lists/(\d+)/$', views.view_list, name='view_list'),
+	url(r'^lists/(\d+)/add_item$', views.add_item, name='add_item')
 ]
