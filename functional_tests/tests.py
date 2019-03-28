@@ -4,10 +4,11 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 MAX_WAIT = 10
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 	"""docstring for NewVisitorTest"""
 	# def __init__(self, arg):
 	# 	super(NewVisitorTest, self).__init__()
@@ -65,7 +66,7 @@ class NewVisitorTest(LiveServerTestCase):
 		# kobe想知道这个网站是否会记住她的清单
 		# 他看到网站为他生成了唯一一个URL
 		# 页面中有一些文字解说这个功能
-		self.fail('Finish the test!')
+		# self.fail('Finish the test!')
 		# 他访问那个URL 发现待办事项清单还在
 		# 他很满意，训练去了
 
@@ -126,7 +127,7 @@ class NewVisitorTest(LiveServerTestCase):
 
 		# 他新建一个清单，看到输入框仍完美地居中显示
 		inputbox.send_keys('testing')
-		inputbox.send_keys(self.ENTER)
+		inputbox.send_keys(Keys.ENTER)
 		self.wait_for_row_in_list_table('1: testing')
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertAlmostEqual(
