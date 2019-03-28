@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from lists import views
+from lists import views as list_views
 from lists import urls as list_urls
 
 
@@ -29,7 +29,7 @@ This function is an alias to django.urls.re_path().
 It’s likely to be deprecated in a future release.
 """
 urlpatterns = [
-	url(r'^$', views.home_page, name='home'),	#  path 不用正则表达式
+	url(r'^$', list_views.home_page, name='home'),	#  path 不用正则表达式
 	# path('lists/new', views.new_list, name='new_list'),
 	# url(r'^lists/(\d+)/$', views.view_list, name='view_list'),
 	# url(r'^lists/(\d+)/add_item$', views.add_item, name='add_item')
