@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>To-Do lists</title>
-</head>
-<body>
-	<h1>Your To-Do list</h1>
-	<form method="POST" action="/lists/{{ list.id }}/add_item">
-		<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
-		{% csrf_token %}
-	</form>
+{% extends 'base.html' %}
+{% block header_text %}Your To-Do list{% endblock %}
+{% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
+{% block table %}
 	<table id="id_list_table">
-		<!-- .item_set是反向查询，Django提供的非常有用的ORM功能作用是在其他表中查询某个对象的相关记录 -->
 		{% for item in list.item_set.all %}
 			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
 		{% endfor %}
 	</table>
-</body>
-</html>
+{% endblock %}
