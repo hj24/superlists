@@ -1,4 +1,3 @@
-import time
 from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -28,14 +27,12 @@ class NewVisitorTest(FunctionalTest):
 		# 他按回车以后页面更新了
 		# 待办事项中显示了”1：Buy a new basketball“
 		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
 		self.wait_for_row_in_list_table('1: Buy a new basketball')
 		# 页面中又显示了一个文本框，可以输入其它代办事项
 		# 他又输入了 ”play basketball to win the game“
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('play basketball to win the game')
 		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
 		# 页面再次更新, 他的清单中显示了两个待办事项
 		self.wait_for_row_in_list_table('1: Buy a new basketball')
 		self.wait_for_row_in_list_table('2: play basketball to win the game')
