@@ -26,7 +26,7 @@ def _get_latest_source(source_folder):
 			run('git log -n 1')
 	else:
 		run(f'git clone {REPO_URL} {source_folder}')
-	current_commit = local("git log -n 1 --format=%H", capture=True)
+	current_commit = local("git log -n 1 --format=%h", capture=True)
 	# print(type(current_commit))
 	run(f'cd {source_folder} && git reset --hard {current_commit}')
 	# with cd(source_folder):
@@ -64,7 +64,7 @@ def _update_static_files(source_folder):
 def _update_database(source_folder):
 	run(
 		f'cd {source_folder}'
-		' && ../virtualenv/bin/python manage.py migrate --noinput'
+		' && sudo ../virtualenv/bin/python manage.py migrate --noinput'
 	)
 
 
