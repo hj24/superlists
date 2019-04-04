@@ -1,7 +1,8 @@
 import time
-from .base import FunctionalTest
+from .base import *
 from unittest import skip
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 
 class ItemValidationTest(FunctionalTest):
 
@@ -50,7 +51,7 @@ class ItemValidationTest(FunctionalTest):
 		self.wait_for_row_in_list_table('1: play basketball to win the game')
 		self.wait_for_row_in_list_table('2: buy a new basketball')
 
-	
+
 
 
 
