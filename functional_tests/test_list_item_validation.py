@@ -50,6 +50,7 @@ class ItemValidationTest():
 		self.wait_for_row_in_list_table('1: play basketball to win the game')
 		self.wait_for_row_in_list_table('2: buy a new basketball')
 
+	
 
 
 
