@@ -3,7 +3,7 @@ from .base import FunctionalTest
 from unittest import skip
 from selenium.webdriver.common.keys import Keys
 
-class ItemValidationTest():
+class ItemValidationTest(FunctionalTest):
 
 	def wait_for(self, fn):
 		start_time = time.time()
