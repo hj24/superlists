@@ -4,7 +4,7 @@ from lists.forms import ItemForm, EMPTY_ITEM_ERROR
 
 class ItemFormTest(TestCase):
 
-	def test_form_renders_item_text_input(self):
+	def test_form_renders_text_input(self):
 		form = ItemForm()
 		# .as_p的作用是把表单渲染成HTML
 		self.assertIn('placeholder="Enter a to-do item"', form.as_p())

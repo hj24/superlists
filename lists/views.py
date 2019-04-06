@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from lists.models import Item, List
 from django.core.exceptions import ValidationError
+from lists.forms import ItemForm
 
 # Create your views here.
 """
@@ -8,14 +9,14 @@ render 第三个参数是一个字典，把模板变量的名称映射到值上
 dict.get(key, default=None) 如果值不在字典中返回默认值
 """
 def home_page(request):
-	return render(request, 'home.html')
+	return render(request, 'home.html', {'form': ItemForm()})
 
 def new_list(request):
 	"""
 	item.objects.create 是创建Item对象的简化方式无需再掉用.save()方法
 	"""
 	list_ = List.objects.create()
-	item = Item(text=request.POST['item_text'], list=list_)
+	item = Item(text=request.POST['text'], list=list_)
 	try:
 		item.full_clean()
 		item.save()
@@ -31,7 +32,7 @@ def view_list(request, list_id):
 
 	if request.method == 'POST':
 		try:
-			item = Item(text=request.POST['item_text'], list=list_)
+			item = Item(text=request.POST['text'], list=list_)
 			item.full_clean()
 			item.save()
 			return redirect(list_)
