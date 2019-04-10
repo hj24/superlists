@@ -18,6 +18,8 @@ from django.urls import path
 from django.conf.urls import url, include
 from lists import views as list_views
 from lists import urls as list_urls
+from accounts import views as accounts_views
+from accounts import urls as accounts_urls
 
 
 # urlpatterns = [
@@ -34,4 +36,5 @@ urlpatterns = [
 	# url(r'^lists/(\d+)/$', views.view_list, name='view_list'),
 	# url(r'^lists/(\d+)/add_item$', views.add_item, name='add_item')
 	url(r'^lists/', include(list_urls)),
+    url(r'^accounts/', include(accounts_urls)),
 ]
