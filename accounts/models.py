@@ -3,8 +3,8 @@ from django.db import models
 from django.contrib import auth
 
 #auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-
-# Create your models here.
+# 关于manage.py migrate无效的问题
+# https://blog.csdn.net/qq_25730711/article/details/60327344
 class User(models.Model):
 	email = models.EmailField(primary_key=True)
 
