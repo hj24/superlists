@@ -5,7 +5,7 @@ import re, time
 from .base import *
 
 TEST_EMAIL = 'edith@example.com'
-SUBJECT = '你的登录链接, 用于登录TO-DO list'
+SUBJECT = 'Your login link for Superlists'
 
 class LoginTest(FunctionalTest):
 
@@ -29,7 +29,7 @@ class LoginTest(FunctionalTest):
 
 		# 出现一条信息告诉他邮件已发出
 		self.wait_for(lambda: self.assertIn(
-			'检查你的邮箱',
+			'Check your email',
 			self.browser.find_element_by_tag_name('body').text
 		))
 
@@ -39,14 +39,14 @@ class LoginTest(FunctionalTest):
 		self.assertEqual(email.subject, SUBJECT)
 
 		# 邮箱中有个链接
-		self.assertIn('使用这个链接来登录', email.body)
+		self.assertIn('Use this link to log in', email.body)
 		url_search = re.search(r'http://.+/.+$', email.body)
 		if not url_search:
 			self.fail(f'Could not find url in email body:\n{email.body}')
 		url = url_search.group(0)
 		print(self.live_server_url, url)
 		self.assertIn(self.live_server_url, url)
-
+		print(url)
 		# 他点击了链接
 		self.browser.get(url)
 
