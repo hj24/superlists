@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lists',
     'accounts',
+    'functional_tests',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -136,19 +137,43 @@ EMAIL_USE_TLS = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d][%(name)s:%(lineno)d][%(module)s:%(funcName)s][%(levelname)s]-%(message)s'
+        },
+    },
     'handlers': {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
+        'request_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+        'filename': '/tmp/tddlist.log',
+        'maxBytes': 1024*1024*5,
+        'backupCount': 5,
+        'formatter': 'standard',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'level': 'DEBUG',
+            'handlers': ['console', 'request_handler'],
+            'propagate': False,
+        },
+        'django.request': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'request_handler'],
+            'propagate': False,
         },
     },
-    'root': {'level': 'INFO'},
+    'root': {
+       'level': 'DEBUG',
+       'handlers': ['console']
+    }
 }
+
 
 
 
