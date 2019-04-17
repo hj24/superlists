@@ -16,7 +16,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 			self.live_server_url = 'http://' + self.staging_server
 			reset_database(self.staging_server)
 
-
 	def tearDown(self):
 		self.browser.quit()
 

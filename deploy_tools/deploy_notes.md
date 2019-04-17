@@ -108,3 +108,5 @@
 - 参考gunicorn-tddlist.conf
 - 把其中的SITENAME替换成所需的域名，例如：tddlist.tk即可
 
+- 把EMAIL_PASSWORD替换自己的邮箱密码
+- 把SERVER_PASSWORD替换为自己的服务器密码
