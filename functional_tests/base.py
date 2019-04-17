@@ -9,9 +9,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
-		staging_server = os.environ.get('STAGING_SERVER')
+		self.staging_server = os.environ.get('STAGING_SERVER')
 		#self.factory = RequestFactory()
-		if staging_server:
+		if self.staging_server:
 			self.live_server_url = 'http://' + staging_server
 
 	def tearDown(self):
