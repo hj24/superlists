@@ -32,6 +32,8 @@ class ListAndItemModelsTest(TestCase):
 		item = Item(list=list2, text='bla')
 		item.full_clean()	# 不该抛出异常
 
+	# 防止模型默认排序被干扰
+	# 在Item元类要加 ordering = ('id',)
 	def test_list_ordering(self):
 		list1 = List.objects.create()
 		item1 = Item.objects.create(list=list1, text='i1')

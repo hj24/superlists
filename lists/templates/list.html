@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block header_text %}Your To-Do list{% endblock %}
 {% block form_action %}{% url 'view_list' list.id %}{% endblock %}
-{% block table %}
+{% block extra_content %}
 	<table id="id_list_table" class="table">
 		{% for item in list.item_set.all %}
 			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
