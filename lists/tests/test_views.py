@@ -13,6 +13,9 @@ from lists.forms import (
 	ExistingListItemForm, ItemForm
 )
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 # Create your tests here.
 class HomePageTest(TestCase):
 
@@ -171,8 +174,22 @@ class NewListTest(TestCase):
 class MyListsTest(TestCase):
 
 	def test_my_lists_url_renders_my_lists_template(self):
-		response = self.client.get('/lists/users/a@b.com')
+		User.objects.create(email='a@b.com')
+		response = self.client.get('/lists/users/a@b.com/')
 		self.assertTemplateUsed(response, 'my_lists.html')
+
+	def test_passes_correct_owner_to_template(self):
+		User.objects.create(email='wrong@owner.com')
+		correct_user = User.objects.create(email='a@b.com')
+		response = self.client.get('/lists/users/a@b.com/')
+		self.assertEqual(response.context['owner'], correct_user)
+
+	def test_list_owner_is_saved_if_user_is_authenticated(self):
+		user = User.objects.create(email='a@b.com')
+		self.client.force_login(user)
+		self.client.post('/lists/new', data={'text': 'new item'})
+		list_ = List.objects.first()
+		self.assertEqual(list_.owner, user)
 
 
 
