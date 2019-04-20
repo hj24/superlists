@@ -106,7 +106,48 @@
 ## Upstart 服务(自启动脚本)
 
 - 参考gunicorn-tddlist.conf
+
 - 把其中的SITENAME替换成所需的域名，例如：tddlist.tk即可
 
 - 把EMAIL_PASSWORD替换自己的邮箱密码
+
 - 把SERVER_PASSWORD替换为自己的服务器密码
+
+- 脚本执行完毕之后仍需额外的一步修改将配置文件对应自己的域名(以tddlist.tk为例)：
+
+  1. 创建Nginx虚拟主机：
+
+  ```shell
+  sed "s/SITENAME/tddlist.tk/g" \
+  source/deploy_tools/nginx.template.conf \
+  | tee /etc/nginx/sites-available/tddlist.tk
+  ```
+
+  - 注意：该命令需要一行一行输入
+
+  做一个符号链接：
+
+  ```shell
+  sudo ln -s ../sites-available/tddlist.tk \
+  /etc/nginx/sites-enabled/tddlist.tk
+  ```
+
+  
+
+  2. 修改Upstart脚本：
+
+  ```shell
+  sed "s/SITENAME/tddlist.tk/g" \
+  source/deploy_tools/gunicorn-tddlist.conf \
+  | tee /etc/init/gunicorn-tddlist.conf
+  ```
+
+- 启动脚本：
+
+  ```shell
+  sudo initctl stop gunicorn-tddlists.cf
+  sudo initctl start gunicorn-tddlists.cf
+  ```
+
+  - 如果失败，请检查以上两个脚本是否正确
+
